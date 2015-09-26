@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#change to homedir
+cd ~
+
+#download drush, unzip, and rename folder
+wget https://github.com/drush-ops/drush/archive/master.zip
+unzip -q master.zip
+mv ./drush-master/ ./drush
+
+#create alias
+echo "alias drush='~/drush/drush'">>.bashrc
+source ~/.bashrc
+
+#download and install composer
+cd ~/drush
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
+php composer.phar update
+
+#did it work ?
+echo "If drush version displays, must have worked. If not, must be broken."
+~/drush/drush version
